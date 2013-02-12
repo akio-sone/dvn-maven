@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>DVN-root</artifactId>
+    <groupId>edu.harvard.iq.dvn</groupId>
+    <version>3.3</version>
+  </parent>
+  <groupId>edu.harvard.iq.dvn</groupId>
+  <artifactId>DVN-ingest</artifactId>
+  <version>3.3</version>
+  <name>DVN-ingest</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+
+      
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+<!-- common group -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-math</groupId>
+      <artifactId>commons-math</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+    </dependency>
+
+<!-- the followin jar in the common group is unnecessary for build
+     because unf has it
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.3</version>
+    </dependency>-->
+
+    <dependency>
+      <groupId>colt</groupId>
+      <artifactId>colt</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>edu.harvard.iq.dvn</groupId>
+      <artifactId>unf</artifactId>
+      <version>5.0</version>
+    </dependency>
+
+
+<!--  non-public jar  -->
+
+    <dependency>
+      <groupId>org.rosuda</groupId>
+      <artifactId>Rserve</artifactId>
+      <version>0.5-0</version>
+    </dependency>
+
+
+<!--  non-public jar  -->
+
+    <dependency>
+      <groupId>org.rosuda</groupId>
+      <artifactId>REngine</artifactId>
+      <version>0.5-0</version>
+    </dependency>
+
+
+
+  </dependencies>
+</project>

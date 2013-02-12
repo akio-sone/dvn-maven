@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>edu.harvard.iq.dvn</groupId>
+    <artifactId>DVN-root</artifactId>
+    <version>3.3</version>
+    <packaging>pom</packaging>
+    <name>DVN-root</name>
+    <modules>
+<!--        <module>DVN-EJB</module>-->
+        <module>DVN-web</module>
+        <module>DVN-EAR</module>
+        <module>DVN-ingest</module>
+        <module>unf</module>
+        <module>network_utils</module>
+  </modules>
+
+
+
+    <properties>
+        <dvn-non-public-jar-root-dir>C:/ahome/dvn-src/v3_3/dvn-app/trunk/lib</dvn-non-public-jar-root-dir>
+        <dvn-lib-EJB-dir>dvn-lib-EJB</dvn-lib-EJB-dir>
+        <dvn-lib-web-dir>dvn-lib-WEB</dvn-lib-web-dir>
+        <dvn-lib-COMMON-dir>dvn-lib-COMMON</dvn-lib-COMMON-dir>
+    </properties>
+
+
+    <repositories>
+
+        <repository>
+            <id>java.net2</id>
+            <name>Repository hosting the jee6 artifacts</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+        <repository>
+            <id>jvnet-nexus-releases</id>
+            <name>jvnet-nexus-releases</name>
+            <url>https://maven.java.net/content/repositories/releases/</url>
+
+        </repository>
+    </repositories>
+    
+    <dependencies>
+
+        <!-- common group -->
+
+<!--        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ORG.oclc</groupId>
+            <artifactId>harvester2</artifactId>
+            <version>2007-05-31-generated</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ORG.oclc</groupId>
+            <artifactId>oaicat</artifactId>
+            <version>2007-10-16-generated</version>
+        </dependency>-->
+
+        <!-- runtime -->
+
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>auto-depends</artifactId>
+            <version>1.1.15</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.main.common</groupId>
+            <artifactId>common-util</artifactId>
+            <version>[3.1.2.1-SNAPSHOT, 3.1.2.2]</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.main.admin</groupId>
+            <artifactId>config-api</artifactId>
+            <version>[3.1.2.1-SNAPSHOT, 3.1.2.2]</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.grizzly</groupId>
+            <artifactId>grizzly-config</artifactId>
+            <version>1.9.50</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.main.common</groupId>
+            <artifactId>internal-api</artifactId>
+            <version>[3.1.2-b20, 3.1.2.2]</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+
+
+
+
+
+
+    <build>
+        <plugins>
+
+            <!-- exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <inherited>false</inherited>
+                <executions>
+
+                    <!-- non-public jar 1: -->
+                    <execution>
+                        <id>install-non-public-jar-1</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/Rserve.jar</argument>
+                                <argument>-DgroupId=org.rosuda</argument>
+                                <argument>-DartifactId=Rserve</argument>
+                                <argument>-Dversion=0.5-0</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- non-public jar 2: -->
+                    <execution>
+                        <id>install-non-public-jar-2</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/REngine.jar</argument>
+                                <argument>-DgroupId=org.rosuda</argument>
+                                <argument>-DartifactId=REngine</argument>
+                                <argument>-Dversion=0.5-0</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+
+                    <!-- ejb -->
+
+
+                    <execution>
+                        <id>install-non-public-jar:harvester2.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-COMMON-dir}/harvester2.jar</argument>
+                                <argument>-DgroupId=ORG.oclc</argument>
+                                <argument>-DartifactId=harvester2</argument>
+                                <argument>-Dversion=2007-05-31-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:oaicat.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-COMMON-dir}/oaicat.jar</argument>
+                                <argument>-DgroupId=ORG.oclc</argument>
+                                <argument>-DartifactId=oaicat</argument>
+                                <argument>-Dversion=2007-10-16-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:concurrent.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/concurrent.jar</argument>
+                                <argument>-DgroupId=concurrent</argument>
+                                <argument>-DartifactId=concurrent</argument>
+                                <argument>-Dversion=2004-05-20-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:datax.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/datax.jar</argument>
+                                <argument>-DgroupId=com.muze</argument>
+                                <argument>-DartifactId=datax</argument>
+                                <argument>-Dversion=1.0beta</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:handle.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/handle.jar</argument>
+                                <argument>-DgroupId=net.handle</argument>
+                                <argument>-DartifactId=handle</argument>
+                                <argument>-Dversion=2006-06-16-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:jhove.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/jhove.jar</argument>
+                                <argument>-DgroupId=edu.harvard.hul.ois.jhove</argument>
+                                <argument>-DartifactId=jhove</argument>
+                                <argument>-Dversion=2007-10-11-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:jhove-handler.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/jhove-handler.jar</argument>
+                                <argument>-DgroupId=edu.harvard.hul.ois.jhove</argument>
+                                <argument>-DartifactId=jhove-module</argument>
+                                <argument>-Dversion=2007-10-11-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:jhove-module.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/jhove-module.jar</argument>
+                                <argument>-DgroupId=edu.harvard.hul.ois.jhove</argument>
+                                <argument>-DartifactId=jhove-handler</argument>
+                                <argument>-Dversion=2007-10-11-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:license.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/license.jar</argument>
+                                <argument>-DgroupId=com.websina</argument>
+                                <argument>-DartifactId=license</argument>
+                                <argument>-Dversion=2004-07-05-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:marc4j.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/marc4j.jar</argument>
+                                <argument>-DgroupId=org.marc4j</argument>
+                                <argument>-DartifactId=marc4j</argument>
+                                <argument>-Dversion=2.3.1</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:nesstar_api.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/nesstar_api.jar</argument>
+                                <argument>-DgroupId=nesstar_api</argument>
+                                <argument>-DartifactId=nesstar_api</argument>
+                                <argument>-Dversion=2006-02-03-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:NesstarHarvester.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/NesstarHarvester.jar</argument>
+                                <argument>-DgroupId=no.uib.nsd.nesstar</argument>
+                                <argument>-DartifactId=NesstarHarvester</argument>
+                                <argument>-Dversion=2008-04-17-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:normalizer.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/normalizer.jar</argument>
+                                <argument>-DgroupId=com.ibm.icu</argument>
+                                <argument>-DartifactId=normalizer</argument>
+                                <argument>-Dversion=2003-10-19-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:parser.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/parser.jar</argument>
+                                <argument>-DgroupId=com.sun</argument>
+                                <argument>-DartifactId=paser</argument>
+                                <argument>-Dversion=2000-04-21-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>install-non-public-jar:VDCNet-jaxb.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-EJB-dir}/VDCNet-jaxb.jar</argument>
+                                <argument>-DgroupId=edu.harvard.iq.dvn</argument>
+                                <argument>-DartifactId=VDCNet-jaxb</argument>
+                                <argument>-Dversion=2007-04-10-generated</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+
+                    <!-- web -->
+                    <!-- the following 1.4-SNAPSHOT jar is no longer available from the project site -->
+                    <execution>
+                        <id>install-non-public-jar:commons-validator-1.4-SNAPSHOT.jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install:install-file</argument>
+                                <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-web-dir}/commons-validator-1.4-SNAPSHOT.jar</argument>
+                                <argument>-DgroupId=commons-validator</argument>
+                                <argument>-DartifactId=commons-validator</argument>
+                                <argument>-Dversion=1.4-SNAPSHOT</argument>
+                                <argument>-Dpackaging=jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+
+                   <execution>
+                      <id>install-non-public-jar:jxl.jar</id>
+                      <phase>validate</phase>
+                      <goals>
+                          <goal>exec</goal>
+                      </goals>
+                      <configuration>
+                          <executable>mvn</executable>
+                          <arguments>
+                              <argument>install:install-file</argument>
+                              <argument>-Dfile=${dvn-non-public-jar-root-dir}/${dvn-lib-web-dir}/jxl.jar</argument>
+                              <argument>-DgroupId=net.sourceforge.jexcelapi</argument>
+                              <argument>-DartifactId=jxl</argument>
+                              <argument>-Dversion=2.6.9-java_1_4</argument>
+                              <argument>-Dpackaging=jar</argument>
+                          </arguments>
+                      </configuration>
+                  </execution>
+
+
+                </executions>
+
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+
+
+
+</project>
