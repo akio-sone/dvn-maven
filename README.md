@@ -5,7 +5,7 @@ author: Akio Sone at UNC-Odum Institute
 1. How to create the skeletal directory-structure: A flat case
 1. 1 Ultimate project structure: 
 
-
+<pre>
 --/DVN-root--+--/DVN-EAR--------+--/src
              |                  +--pom.xml
              |            
@@ -26,7 +26,7 @@ author: Akio Sone at UNC-Odum Institute
              |                            
              +--pom.xml
                             
-
+</pre>
 Note 1: As of version 3.3, the ultimate artifact of DVN-project is a war file, not an ear file due to the circular dependency between DVN-EJB and DVN-web projects; However, the ear-generating sub-project is kept here.
 Note 2: DVN-EJB project was later removed from the project structure because of the above circular dependency
 
