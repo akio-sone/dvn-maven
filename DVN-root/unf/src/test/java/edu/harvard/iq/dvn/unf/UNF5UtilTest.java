@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -53,7 +54,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_doubleArr() throws Exception {
         System.out.println("calculateDoubleUNF");
-        List testData = readFileData("test/DoubleTest");
+        List testData = readFileData("/DoubleTest");
         double[] numb = new double[testData.size()-1];
         String expResult =  (String) testData.get(0);
         for (int i=1; i < testData.size(); i++){
@@ -69,7 +70,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_floatArr() throws Exception {
         System.out.println("calculateFloatUNF");
-        List testData = readFileData("test/FloatTest");
+        List testData = readFileData("/FloatTest");
         float[] numb = new float[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -85,7 +86,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_shortArr() throws Exception {
         System.out.println("calculateShortUNF");
-        List testData = readFileData("test/ShortTest");
+        List testData = readFileData("/ShortTest");
         short[] numb = new short[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -101,7 +102,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_byteArr() throws Exception {
         System.out.println("calculateByteUNF");
-        List testData = readFileData("test/ByteTest");
+        List testData = readFileData("/ByteTest");
         byte[] numb = new byte[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -117,7 +118,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_longArr() throws Exception {
         System.out.println("calculateLongUNF");
-        List testData = readFileData("test/LongTest");
+        List testData = readFileData("/LongTest");
         long[] numb = new long[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -133,7 +134,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_intArr() throws Exception {
         System.out.println("calculateIntUNF");
-        List testData = readFileData("test/IntTest");
+        List testData = readFileData("/IntTest");
         int[] numb = new int[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -149,7 +150,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_booleanArr() throws Exception {
         System.out.println("calculateBooleanUNF");
-        List testData = readFileData("test/BooleanTest");
+        List testData = readFileData("/BooleanTest");
         boolean[] numb = new boolean[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -165,7 +166,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_StringArr() throws Exception {
         System.out.println("calculateStringUNF");
-        List testData = readFileData("test/StringTest");
+        List testData = readFileData("/StringTest");
         String[] chr = new String[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -182,7 +183,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_StringArr_StringArr() throws Exception {
         System.out.println("calculateDateTimeUNF");
-        List testData = readFileData("test/DateTimeTest");
+        List testData = readFileData("/DateTimeTest");
         String[] chr = new String[testData.size() - 1];
         String[] sdfFormat = new String[testData.size() - 1];
         String expResult = (String) testData.get(0);
@@ -201,7 +202,7 @@ public class UNF5UtilTest {
     @Test
     public void testCalculateUNF_BitStringArr() throws Exception {
         System.out.println("calculateUNF");
-        List testData = readFileData("test/BitStringTest");
+        List testData = readFileData("/BitStringTest");
         BitString[] numb = new BitString[testData.size() - 1];
         String expResult = (String) testData.get(0);
         for (int i = 1; i < testData.size(); i++) {
@@ -213,10 +214,12 @@ public class UNF5UtilTest {
 
     private List readFileData(String filename) {
         List retList = new ArrayList();
-        File file = new File(filename);
+        URL url = this.getClass().getResource(filename);
+
+        File file = new File(url.getFile());
         InputStream in = null;
         try {
-            in = new FileInputStream(filename);
+            in = new FileInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String line = null;
             while ((line = reader.readLine()) != null) {
